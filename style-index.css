@@ -73,8 +73,8 @@ nav ul li a:hover {
 }
 
 .hero {
-    background: #000; /* Чёрный фон */
-    color: white;     /* Белый текст */
+    background: #000;
+    color: white;
     text-align: center;
     padding: 6rem 0;
 }
@@ -274,7 +274,7 @@ footer {
 
 .advantage-icon {
     font-size: 3rem;
-    color: #b03a2a;
+    color: #8B2C1D;  /* стал темнее */
     margin-bottom: 1.5rem;
 }
 
