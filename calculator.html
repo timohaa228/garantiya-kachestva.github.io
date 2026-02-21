@@ -95,20 +95,20 @@
                         
                         <div class="checkbox-group">
                             <input type="checkbox" id="inflation">
-                            <label for="inflation">Подкачка</label>
+                            <label for="inflation">Подкачка шин</label>
                             <span class="checkbox-price">10 ₽</span>
                         </div>
                         
                         <div class="checkbox-group">
                             <input type="checkbox" id="jack">
-                            <label for="jack">Нужно использование домкрата</label>
-                            <span class="checkbox-price">100 ₽</span>
+                            <label for="jack">Использование домкрата</label>
+                            <span class="checkbox-price">300 ₽</span>
                         </div>
                         
                         <div class="checkbox-group">
                             <input type="checkbox" id="disposal">
                             <label for="disposal">Утилизация б/у шины</label>
-                            <span class="checkbox-price">25 ₽</span>
+                            <span class="checkbox-price">100 ₽</span>
                         </div>
                         
                         <div class="checkbox-group">
@@ -176,16 +176,16 @@
                             <span class="breakdown-value">+100 ₽</span>
                         </div>
                         <div class="breakdown-item" id="inflation-breakdown" style="display: none;">
-                            <span class="breakdown-label">Подкачка</span>
+                            <span class="breakdown-label">Подкачка шин</span>
                             <span class="breakdown-value">+10 ₽</span>
                         </div>
                         <div class="breakdown-item" id="jack-breakdown" style="display: none;">
                             <span class="breakdown-label">Использование домкрата</span>
-                            <span class="breakdown-value">+100 ₽</span>
+                            <span class="breakdown-value">+300 ₽</span>
                         </div>
                         <div class="breakdown-item" id="disposal-breakdown" style="display: none;">
                             <span class="breakdown-label">Утилизация б/у шины</span>
-                            <span class="breakdown-value">+25 ₽</span>
+                            <span class="breakdown-value">+100 ₽</span>
                         </div>
                         <div class="breakdown-item" id="leak-check-breakdown" style="display: none;">
                             <span class="breakdown-label">Проверка на наличие прокола</span>
@@ -200,7 +200,7 @@
                     <div class="price-breakdown">
                         <div class="breakdown-item">
                             <span class="breakdown-label">ОБЩАЯ СТОИМОСТЬ</span>
-                            <span class="breakdown-value" id="total-price" style="color: #2c3e50; font-size: 1.2rem;">1 860 ₽</span>
+                            <span class="breakdown-value" id="total-price" style="color: #c0392b; font-size: 1.2rem;">1 860 ₽</span>
                         </div>
                     </div>
                     
@@ -215,7 +215,7 @@
                         </ul>
                     </div>
                     
-                    <a href="index.html#contact" class="btn" style="margin-top: 2rem; background: #3498db;">
+                    <a href="index.html#contact" class="btn" style="margin-top: 2rem; background: #e74c3c;">
                         <i class="fas fa-phone"></i> Записаться на шиномонтаж
                     </a>
                     
@@ -229,39 +229,22 @@
 
     <footer>
         <div class="container">
-            <div class="footer-content">
+            <div class="footer-content" style="grid-template-columns: 1fr;">
                 <div class="footer-about">
                     <div class="footer-logo">АВТОСЕРВИС</div>
-                    <p>Профессиональный автосервис с многолетним опытом работы. Качественные услуги по шиномонтажу и ремонту автомобилей.</p>
-                </div>
-                
-                <div class="footer-links">
-                    <h4>Контакты</h4>
-                    <ul>
-                        <li><i class="fas fa-map-marker-alt"></i> г.Искитим, улица советская, 156</li>
-                        <li><i class="fas fa-phone"></i> +79232224240</li>
-                        <li><i class="fas fa-clock"></i> Каждый день: 9:00-21:00</li>
-                    </ul>
-                </div>
-                
-                <div class="footer-links">
-                    <h4>Инструменты</h4>
-                    <ul>
-                        <li><a href="calculator.html"><i class="fas fa-calculator"></i> Расчет стоимости</a></li>
-                        <li><a href="index.html#tire-service"><i class="fas fa-tire"></i> Шиномонтаж</a></li>
-                        <li><a href="index.html#why-us"><i class="fas fa-star"></i> Почему именно мы?</a></li>
-                    </ul>
+                    <p>Профессиональный автосервис с многолетним опытом работы.</p>
                 </div>
             </div>
             
             <div class="copyright">
                 <p>&copy; 2023 Автосервис. Все права защищены.</p>
-                <p>Данный сайт является демонстрационной копией и не осуществляет продажу товаров.</p>
+                <p>Данный сайт является демонстрационной копией.</p>
             </div>
         </div>
     </footer>
 
     <script>
+        // Полный скрипт калькулятора (логика без изменений)
         function updateSizeDisplay() {
             const profile = document.getElementById('profile').value;
             const diameter = document.getElementById('diameter').value;
@@ -276,7 +259,6 @@
             input.addEventListener('change', updateSizeDisplay);
         });
         
-        // Обновлённые цены: 13 и 14 одинаковы (465), 20+ одинаковы (800)
         function getBasePrice(diameter) {
             const priceMap = {
                 13: 465,
@@ -295,7 +277,6 @@
             return priceMap[diameter] || 800;
         }
 
-        // Фиксированные надбавки за RunFlat (без изменений)
         function getRunFlatSurcharge(diameter) {
             const surchargeMap = {
                 13: 115,
@@ -334,8 +315,8 @@
             let additionalTotal = 0;
             if (additionalServices.sealant) additionalTotal += 100 * wheelCount;
             if (additionalServices.inflation) additionalTotal += 10 * wheelCount;
-            if (additionalServices.jack) additionalTotal += 100;
-            if (additionalServices.disposal) additionalTotal += 25 * wheelCount;
+            if (additionalServices.jack) additionalTotal += 300;
+            if (additionalServices.disposal) additionalTotal += 100 * wheelCount;
             if (additionalServices.leakCheck) additionalTotal += 100 * wheelCount;
             
             const totalPrice = mainTotalPrice + additionalTotal;
@@ -427,12 +408,12 @@
                 
                 document.getElementById('jack-breakdown').style.display = additionalServices.jack ? 'flex' : 'none';
                 if (additionalServices.jack) {
-                    document.getElementById('jack-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(100)} ₽`;
+                    document.getElementById('jack-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(300)} ₽`;
                 }
                 
                 document.getElementById('disposal-breakdown').style.display = additionalServices.disposal ? 'flex' : 'none';
                 if (additionalServices.disposal) {
-                    document.getElementById('disposal-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(25 * wheelCount)} ₽`;
+                    document.getElementById('disposal-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(100 * wheelCount)} ₽`;
                 }
                 
                 document.getElementById('leak-check-breakdown').style.display = additionalServices.leakCheck ? 'flex' : 'none';
