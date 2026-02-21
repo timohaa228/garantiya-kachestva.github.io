@@ -8,11 +8,11 @@
 body {
     line-height: 1.6;
     color: #333;
-    background: #f5f7fa;
+    background: #f9f9f9;
 }
 
 header {
-    background: #2c3e50;
+    background: #c0392b;
     color: white;
     padding: 1rem 0;
     position: sticky;
@@ -36,7 +36,7 @@ header {
 .logo {
     font-size: 1.8rem;
     font-weight: bold;
-    color: #3498db;
+    color: white;
     text-decoration: none;
 }
 
@@ -59,17 +59,17 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: #3498db;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.2);
+    color: white;
 }
 
 .home-link {
-    background: #3498db;
+    background: #e74c3c;
     color: white !important;
 }
 
 .home-link:hover {
-    background: #2980b9 !important;
+    background: #c0392b !important;
 }
 
 .section {
@@ -88,7 +88,7 @@ nav ul li a:hover {
 
 .calculator-header h1 {
     font-size: 2.5rem;
-    color: #2c3e50;
+    color: #c0392b;
     margin-bottom: 0.5rem;
 }
 
@@ -108,8 +108,8 @@ nav ul li a:hover {
 }
 
 .calc-instructions {
-    background: #e8f4fc;
-    border-left: 4px solid #3498db;
+    background: #fff0f0;
+    border-left: 4px solid #e74c3c;
     padding: 1.5rem;
     margin-bottom: 2rem;
     border-radius: 0 5px 5px 0;
@@ -117,7 +117,7 @@ nav ul li a:hover {
 }
 
 .calc-instructions h3 {
-    color: #2c3e50;
+    color: #c0392b;
     margin-bottom: 0.5rem;
 }
 
@@ -140,7 +140,7 @@ nav ul li a:hover {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: bold;
-    color: #2c3e50;
+    color: #c0392b;
     text-align: left;
 }
 
@@ -154,19 +154,20 @@ nav ul li a:hover {
 }
 
 .calc-group select:focus, .calc-group input:focus {
-    border-color: #3498db;
+    border-color: #e74c3c;
     outline: none;
 }
 
 .size-display {
-    background: #f8f9fa;
+    background: #f9f9f9;
     padding: 1rem;
     border-radius: 5px;
     text-align: center;
     font-size: 1.2rem;
     font-weight: bold;
-    color: #2c3e50;
+    color: #c0392b;
     margin-bottom: 2rem;
+    border: 1px solid #e74c3c;
 }
 
 .additional-notes {
@@ -174,7 +175,7 @@ nav ul li a:hover {
 }
 
 .additional-notes h4 {
-    color: #2c3e50;
+    color: #c0392b;
     margin-bottom: 1rem;
     text-align: left;
     padding-bottom: 0.5rem;
@@ -187,13 +188,13 @@ nav ul li a:hover {
     justify-content: flex-start;
     margin: 0.8rem 0;
     padding: 0.8rem;
-    background: #f8f9fa;
+    background: #f9f9f9;
     border-radius: 8px;
-    border-left: 4px solid #3498db;
+    border-left: 4px solid #e74c3c;
 }
 
 .checkbox-group.runflat {
-    border-left: 4px solid #e74c3c;
+    border-left: 4px solid #c0392b;
 }
 
 .checkbox-group input[type="checkbox"] {
@@ -201,11 +202,12 @@ nav ul li a:hover {
     height: 20px;
     margin-right: 10px;
     cursor: pointer;
+    accent-color: #e74c3c;
 }
 
 .checkbox-group label {
     font-weight: bold;
-    color: #2c3e50;
+    color: #333;
     cursor: pointer;
     font-size: 1rem;
     flex: 1;
@@ -270,12 +272,12 @@ nav ul li a:hover {
 
 .result-header h3 {
     font-size: 1.8rem;
-    color: #2c3e50;
+    color: #c0392b;
     margin-bottom: 0.5rem;
 }
 
 .price-box {
-    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
     color: white;
     padding: 2rem;
     border-radius: 8px;
@@ -299,7 +301,7 @@ nav ul li a:hover {
 }
 
 .price-breakdown {
-    background: #f8f9fa;
+    background: #f9f9f9;
     padding: 1.5rem;
     border-radius: 8px;
     margin-bottom: 1.5rem;
@@ -307,7 +309,7 @@ nav ul li a:hover {
 }
 
 .price-breakdown h4 {
-    color: #2c3e50;
+    color: #c0392b;
     margin-bottom: 1rem;
     text-align: center;
 }
@@ -323,7 +325,7 @@ nav ul li a:hover {
 .breakdown-item:last-child {
     border-bottom: none;
     font-weight: bold;
-    color: #2c3e50;
+    color: #c0392b;
     font-size: 1.1rem;
 }
 
@@ -333,7 +335,7 @@ nav ul li a:hover {
 
 .breakdown-value {
     font-weight: bold;
-    color: #2c3e50;
+    color: #333;
 }
 
 .surcharge {
@@ -342,7 +344,7 @@ nav ul li a:hover {
 }
 
 .additional-services-breakdown {
-    background: #f8f9fa;
+    background: #f9f9f9;
     padding: 1.5rem;
     border-radius: 8px;
     margin-bottom: 1.5rem;
@@ -350,7 +352,7 @@ nav ul li a:hover {
 }
 
 .additional-services-breakdown h4 {
-    color: #2c3e50;
+    color: #c0392b;
     margin-bottom: 1rem;
     text-align: center;
 }
@@ -360,13 +362,13 @@ nav ul li a:hover {
     color: #666;
     margin-top: 0.5rem;
     padding: 0.5rem;
-    background: #fff3cd;
+    background: #fff0f0;
     border-radius: 4px;
-    border-left: 3px solid #ffc107;
+    border-left: 3px solid #e74c3c;
 }
 
 .service-list {
-    background: #f8f9fa;
+    background: #f9f9f9;
     padding: 1.5rem;
     border-radius: 8px;
     margin-top: 1.5rem;
@@ -374,7 +376,7 @@ nav ul li a:hover {
 }
 
 .service-list h4 {
-    color: #2c3e50;
+    color: #c0392b;
     margin-bottom: 1rem;
     text-align: center;
 }
@@ -389,7 +391,7 @@ nav ul li a:hover {
 }
 
 footer {
-    background: #2c3e50;
+    background: #c0392b;
     color: white;
     padding: 3rem 0 1rem;
     margin-top: 4rem;
@@ -405,38 +407,15 @@ footer {
 .footer-logo {
     font-size: 1.8rem;
     font-weight: bold;
-    color: #3498db;
+    color: white;
     margin-bottom: 1rem;
-}
-
-.footer-links h4 {
-    margin-bottom: 1rem;
-    color: #3498db;
-}
-
-.footer-links ul {
-    list-style: none;
-}
-
-.footer-links ul li {
-    margin-bottom: 0.5rem;
-}
-
-.footer-links ul li a {
-    color: #ddd;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.footer-links ul li a:hover {
-    color: #3498db;
 }
 
 .copyright {
     text-align: center;
     padding-top: 2rem;
-    border-top: 1px solid #34495e;
-    color: #bdc3c7;
+    border-top: 1px solid #e74c3c;
+    color: rgba(255,255,255,0.8);
     font-size: 0.9rem;
 }
 
@@ -469,7 +448,7 @@ footer {
 .back-link {
     display: inline-block;
     margin-top: 2rem;
-    color: #3498db;
+    color: #e74c3c;
     text-decoration: none;
     font-weight: bold;
 }
