@@ -107,6 +107,15 @@ nav ul li a:hover {
     background: #a93226;
 }
 
+/* Бордовая кнопка для калькулятора */
+.btn-burgundy {
+    background: #8B0000 !important;
+}
+
+.btn-burgundy:hover {
+    background: #6D0000 !important;
+}
+
 .section {
     padding: 4rem 0;
 }
@@ -143,7 +152,7 @@ nav ul li a:hover {
 
 .service-icon {
     font-size: 2.5rem;
-    color: #8B0000;  /* бордовый */
+    color: #8B0000;
     margin-bottom: 1rem;
 }
 
@@ -274,7 +283,7 @@ footer {
 
 .advantage-icon {
     font-size: 3rem;
-    color: #8B0000;  /* бордовый */
+    color: #8B0000;
     margin-bottom: 1.5rem;
 }
 
