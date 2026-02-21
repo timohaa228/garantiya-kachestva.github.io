@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор стоимости | Автосервис</title>
+    <link rel="stylesheet" href="style-calculator.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">АВТОСЕРВИС</a>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="home-link"><i class="fas fa-home"></i> На главную</a></li>
+                        <li><a href="index.html#tire-service">Шиномонтаж</a></li>
+                        <li><a href="index.html#why-us">Почему именно мы?</a></li>
+                        <li><a href="index.html#contact">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div class="calculator-container">
+                <div class="calculator-header">
+                    <h1>Расчет стоимости шиномонтажа</h1>
+                    <p>Введите параметры шин для расчета примерной стоимости услуг</p>
+                </div>
+                
+                <div class="calculator">
+                    <div class="calc-instructions">
+                        <h3><i class="fas fa-info-circle"></i> Как пользоваться калькулятором</h3>
+                        <p>Введите профиль и диаметр шин, выберите количество колес и нажмите "Узнать цену" для расчета стоимости шиномонтажа.</p>
+                        <p class="checkbox-note">Примечание: на низкий профиль (≤45%) применяется наценка 40%; на RunFlat шины — фиксированная надбавка в зависимости от диаметра.</p>
+                    </div>
+                    
+                    <div class="calc-inputs-row">
+                        <div class="calc-group">
+                            <label>Профиль (%)</label>
+                            <input type="number" id="profile" placeholder="55" min="30" max="80" value="55">
+                        </div>
+                        
+                        <div class="calc-group">
+                            <label>Диаметр (дюймы)</label>
+                            <select id="diameter">
+                                <option value="13">13</option>
+                                <option value="14" selected>14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                            </select>
+                        </div>
+                        
+                        <div class="calc-group">
+                            <label>Количество колес</label>
+                            <select id="wheel-count">
+                                <option value="1">1 колесо</option>
+                                <option value="2">2 колеса</option>
+                                <option value="3">3 колеса</option>
+                                <option value="4" selected>4 колеса</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="size-display">
+                        Размер: <span id="size-display">R14 55%</span> | Колес: <span id="count-display">4</span>
+                    </div>
+                    
+                    <div class="additional-notes">
+                        <h4><i class="fas fa-sticky-note"></i> Дополнительные пометки</h4>
+                        
+                        <div class="checkbox-group runflat">
+                            <input type="checkbox" id="runflat">
+                            <label for="runflat">RunFlat шины</label>
+                            <span class="checkbox-price">надбавка 100% на демонтаж/монтаж</span>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="sealant">
+                            <label for="sealant">Обработка герметиком</label>
+                            <span class="checkbox-price">100 ₽</span>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="inflation">
+                            <label for="inflation">Подкачка</label>
+                            <span class="checkbox-price">10 ₽</span>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="jack">
+                            <label for="jack">Нужно использование домкрата</label>
+                            <span class="checkbox-price">100 ₽</span>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="disposal">
+                            <label for="disposal">Утилизация б/у шины</label>
+                            <span class="checkbox-price">25 ₽</span>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="leak-check">
+                            <label for="leak-check">Проверка на наличие прокола</label>
+                            <span class="checkbox-price">100 ₽</span>
+                        </div>
+                    </div>
+                    
+                    <button id="calculate-btn" class="btn">
+                        <i class="fas fa-ruble-sign"></i> Узнать цену
+                    </button>
+                </div>
+                
+                <div id="calc-result" class="calc-result">
+                    <div class="result-header">
+                        <h3>Расчет стоимости</h3>
+                        <p>Для размера: <strong id="result-size">R14 55%</strong> | Колес: <strong id="result-count">4</strong></p>
+                        <p id="profile-note" class="surcharge-note" style="display: none;">
+                            <i class="fas fa-exclamation-triangle"></i> Применена наценка 40% за низкий профиль (≤45%)
+                        </p>
+                        <p id="runflat-note" class="surcharge-note" style="display: none;">
+                            <i class="fas fa-exclamation-triangle"></i> Применена надбавка за RunFlat шины (фиксированная сумма)
+                        </p>
+                    </div>
+                    
+                    <div class="price-box">
+                        <div class="price-label">Общая стоимость шиномонтажа:</div>
+                        <div class="price-value" id="price-value">1 860 ₽</div>
+                        <div class="price-per-wheel" id="price-per-wheel">(465 ₽ за одно колесо)</div>
+                    </div>
+                    
+                    <div class="price-breakdown">
+                        <h4><i class="fas fa-calculator"></i> Детализация стоимости</h4>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">Базовая стоимость за 1 колесо</span>
+                            <span class="breakdown-value" id="base-price">465 ₽</span>
+                        </div>
+                        <div class="breakdown-item" id="low-profile-surcharge" style="display: none;">
+                            <span class="breakdown-label">Наценка за низкий профиль (40%)</span>
+                            <span class="breakdown-value surcharge" id="low-profile-amount">+186 ₽</span>
+                        </div>
+                        <div class="breakdown-item" id="runflat-surcharge" style="display: none;">
+                            <span class="breakdown-label">Надбавка за RunFlat</span>
+                            <span class="breakdown-value surcharge" id="runflat-amount">+0 ₽</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">Итого за 1 колесо</span>
+                            <span class="breakdown-value" id="one-wheel-total">465 ₽</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">Количество колес</span>
+                            <span class="breakdown-value" id="wheel-count-display">×4</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">Итого основная стоимость</span>
+                            <span class="breakdown-value" id="main-total-price">1 860 ₽</span>
+                        </div>
+                    </div>
+                    
+                    <div class="additional-services-breakdown" id="additional-services-section" style="display: none;">
+                        <h4><i class="fas fa-plus-circle"></i> Дополнительные услуги</h4>
+                        <div class="breakdown-item" id="sealant-breakdown" style="display: none;">
+                            <span class="breakdown-label">Обработка герметиком</span>
+                            <span class="breakdown-value">+100 ₽</span>
+                        </div>
+                        <div class="breakdown-item" id="inflation-breakdown" style="display: none;">
+                            <span class="breakdown-label">Подкачка</span>
+                            <span class="breakdown-value">+10 ₽</span>
+                        </div>
+                        <div class="breakdown-item" id="jack-breakdown" style="display: none;">
+                            <span class="breakdown-label">Использование домкрата</span>
+                            <span class="breakdown-value">+100 ₽</span>
+                        </div>
+                        <div class="breakdown-item" id="disposal-breakdown" style="display: none;">
+                            <span class="breakdown-label">Утилизация б/у шины</span>
+                            <span class="breakdown-value">+25 ₽</span>
+                        </div>
+                        <div class="breakdown-item" id="leak-check-breakdown" style="display: none;">
+                            <span class="breakdown-label">Проверка на наличие прокола</span>
+                            <span class="breakdown-value">+100 ₽</span>
+                        </div>
+                        <div class="breakdown-item" id="additional-total-breakdown" style="display: none;">
+                            <span class="breakdown-label">Итого дополнительные услуги</span>
+                            <span class="breakdown-value" id="additional-total-price">0 ₽</span>
+                        </div>
+                    </div>
+                    
+                    <div class="price-breakdown">
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">ОБЩАЯ СТОИМОСТЬ</span>
+                            <span class="breakdown-value" id="total-price" style="color: #2c3e50; font-size: 1.2rem;">1 860 ₽</span>
+                        </div>
+                    </div>
+                    
+                    <div class="service-list">
+                        <h4><i class="fas fa-list-check"></i> В основную стоимость входит:</h4>
+                        <ul>
+                            <li>Демонтаж старой покрышки</li>
+                            <li>Монтаж новой покрышки</li>
+                            <li>Компьютерная балансировка</li>
+                            <li>Установка колеса на автомобиль</li>
+                            <li>Проверка давления</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="index.html#contact" class="btn" style="margin-top: 2rem; background: #3498db;">
+                        <i class="fas fa-phone"></i> Записаться на шиномонтаж
+                    </a>
+                    
+                    <a href="index.html#tire-service" class="back-link">
+                        <i class="fas fa-arrow-left"></i> Вернуться к услугам шиномонтажа
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">АВТОСЕРВИС</div>
+                    <p>Профессиональный автосервис с многолетним опытом работы. Качественные услуги по шиномонтажу и ремонту автомобилей.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> г.Искитим, улица советская, 156</li>
+                        <li><i class="fas fa-phone"></i> +79232224240</li>
+                        <li><i class="fas fa-clock"></i> Каждый день: 9:00-21:00</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Инструменты</h4>
+                    <ul>
+                        <li><a href="calculator.html"><i class="fas fa-calculator"></i> Расчет стоимости</a></li>
+                        <li><a href="index.html#tire-service"><i class="fas fa-tire"></i> Шиномонтаж</a></li>
+                        <li><a href="index.html#why-us"><i class="fas fa-star"></i> Почему именно мы?</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Автосервис. Все права защищены.</p>
+                <p>Данный сайт является демонстрационной копией и не осуществляет продажу товаров.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function updateSizeDisplay() {
+            const profile = document.getElementById('profile').value;
+            const diameter = document.getElementById('diameter').value;
+            const wheelCount = document.getElementById('wheel-count').value;
+            
+            document.getElementById('size-display').textContent = `R${diameter} ${profile}%`;
+            document.getElementById('count-display').textContent = wheelCount;
+        }
+        
+        document.querySelectorAll('#profile, #diameter, #wheel-count').forEach(input => {
+            input.addEventListener('input', updateSizeDisplay);
+            input.addEventListener('change', updateSizeDisplay);
+        });
+        
+        // Обновлённые цены: 13 и 14 одинаковы (465), 20+ одинаковы (800)
+        function getBasePrice(diameter) {
+            const priceMap = {
+                13: 465,
+                14: 465,
+                15: 520,
+                16: 595,
+                17: 665,
+                18: 725,
+                19: 775,
+                20: 800,
+                21: 800,
+                22: 800,
+                23: 800,
+                24: 800
+            };
+            return priceMap[diameter] || 800;
+        }
+
+        // Фиксированные надбавки за RunFlat (без изменений)
+        function getRunFlatSurcharge(diameter) {
+            const surchargeMap = {
+                13: 115,
+                14: 125,
+                15: 125,
+                16: 150,
+                17: 165,
+                18: 180,
+                19: 190,
+                20: 190,
+                21: 190,
+                22: 190,
+                23: 190,
+                24: 190
+            };
+            return surchargeMap[diameter] || 190;
+        }
+        
+        function calculatePrice(profile, diameter, wheelCount, isRunFlat, additionalServices) {
+            let basePrice = getBasePrice(diameter);
+            
+            let lowProfileSurcharge = 0;
+            let runflatSurcharge = 0;
+            
+            if (profile <= 45) {
+                lowProfileSurcharge = basePrice * 0.4;
+            }
+            
+            if (isRunFlat) {
+                runflatSurcharge = getRunFlatSurcharge(diameter);
+            }
+            
+            const oneWheelTotal = basePrice + lowProfileSurcharge + runflatSurcharge;
+            const mainTotalPrice = oneWheelTotal * wheelCount;
+            
+            let additionalTotal = 0;
+            if (additionalServices.sealant) additionalTotal += 100 * wheelCount;
+            if (additionalServices.inflation) additionalTotal += 10 * wheelCount;
+            if (additionalServices.jack) additionalTotal += 100;
+            if (additionalServices.disposal) additionalTotal += 25 * wheelCount;
+            if (additionalServices.leakCheck) additionalTotal += 100 * wheelCount;
+            
+            const totalPrice = mainTotalPrice + additionalTotal;
+            
+            return {
+                basePrice: Math.round(basePrice),
+                lowProfileSurcharge: Math.round(lowProfileSurcharge),
+                runflatSurcharge: Math.round(runflatSurcharge),
+                oneWheelTotal: Math.round(oneWheelTotal),
+                mainTotalPrice: Math.round(mainTotalPrice),
+                additionalTotal: additionalTotal,
+                totalPrice: Math.round(totalPrice),
+                wheelCount: wheelCount,
+                isLowProfile: profile <= 45,
+                isRunFlat: isRunFlat,
+                additionalServices: additionalServices
+            };
+        }
+        
+        function formatPrice(price) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        }
+        
+        window.onload = updateSizeDisplay;
+        
+        document.getElementById('calculate-btn').addEventListener('click', function() {
+            const profile = parseInt(document.getElementById('profile').value) || 55;
+            const diameter = parseInt(document.getElementById('diameter').value) || 14;
+            const wheelCount = parseInt(document.getElementById('wheel-count').value) || 4;
+            const isRunFlat = document.getElementById('runflat').checked;
+            
+            const additionalServices = {
+                sealant: document.getElementById('sealant').checked,
+                inflation: document.getElementById('inflation').checked,
+                jack: document.getElementById('jack').checked,
+                disposal: document.getElementById('disposal').checked,
+                leakCheck: document.getElementById('leak-check').checked
+            };
+            
+            const result = calculatePrice(profile, diameter, wheelCount, isRunFlat, additionalServices);
+            
+            document.getElementById('result-size').textContent = `R${diameter} ${profile}%`;
+            document.getElementById('result-count').textContent = wheelCount;
+            
+            document.getElementById('base-price').textContent = `${formatPrice(result.basePrice)} ₽`;
+            document.getElementById('one-wheel-total').textContent = `${formatPrice(result.oneWheelTotal)} ₽`;
+            document.getElementById('wheel-count-display').textContent = `×${wheelCount}`;
+            document.getElementById('main-total-price').textContent = `${formatPrice(result.mainTotalPrice)} ₽`;
+            document.getElementById('total-price').textContent = `${formatPrice(result.totalPrice)} ₽`;
+            document.getElementById('price-value').textContent = `${formatPrice(result.totalPrice)} ₽`;
+            document.getElementById('price-per-wheel').textContent = `(${formatPrice(result.oneWheelTotal)} ₽ за одно колесо)`;
+            
+            if (result.isLowProfile) {
+                document.getElementById('low-profile-surcharge').style.display = 'flex';
+                document.getElementById('profile-note').style.display = 'block';
+                document.getElementById('low-profile-amount').textContent = `+${formatPrice(result.lowProfileSurcharge)} ₽`;
+            } else {
+                document.getElementById('low-profile-surcharge').style.display = 'none';
+                document.getElementById('profile-note').style.display = 'none';
+            }
+            
+            if (result.isRunFlat) {
+                document.getElementById('runflat-surcharge').style.display = 'flex';
+                document.getElementById('runflat-note').style.display = 'block';
+                document.getElementById('runflat-amount').textContent = `+${formatPrice(result.runflatSurcharge)} ₽`;
+            } else {
+                document.getElementById('runflat-surcharge').style.display = 'none';
+                document.getElementById('runflat-note').style.display = 'none';
+            }
+            
+            const hasAdditionalServices = additionalServices.sealant || additionalServices.inflation || 
+                                         additionalServices.jack || additionalServices.disposal || 
+                                         additionalServices.leakCheck;
+            
+            if (hasAdditionalServices) {
+                document.getElementById('additional-services-section').style.display = 'block';
+                document.getElementById('additional-total-breakdown').style.display = 'flex';
+                document.getElementById('additional-total-price').textContent = `+${formatPrice(result.additionalTotal)} ₽`;
+                
+                document.getElementById('sealant-breakdown').style.display = additionalServices.sealant ? 'flex' : 'none';
+                if (additionalServices.sealant) {
+                    document.getElementById('sealant-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(100 * wheelCount)} ₽`;
+                }
+                
+                document.getElementById('inflation-breakdown').style.display = additionalServices.inflation ? 'flex' : 'none';
+                if (additionalServices.inflation) {
+                    document.getElementById('inflation-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(10 * wheelCount)} ₽`;
+                }
+                
+                document.getElementById('jack-breakdown').style.display = additionalServices.jack ? 'flex' : 'none';
+                if (additionalServices.jack) {
+                    document.getElementById('jack-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(100)} ₽`;
+                }
+                
+                document.getElementById('disposal-breakdown').style.display = additionalServices.disposal ? 'flex' : 'none';
+                if (additionalServices.disposal) {
+                    document.getElementById('disposal-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(25 * wheelCount)} ₽`;
+                }
+                
+                document.getElementById('leak-check-breakdown').style.display = additionalServices.leakCheck ? 'flex' : 'none';
+                if (additionalServices.leakCheck) {
+                    document.getElementById('leak-check-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(100 * wheelCount)} ₽`;
+                }
+            } else {
+                document.getElementById('additional-services-section').style.display = 'none';
+            }
+            
+            document.getElementById('calc-result').classList.add('active');
+            document.getElementById('calc-result').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
