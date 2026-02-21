@@ -143,7 +143,7 @@ nav ul li a:hover {
 
 .service-icon {
     font-size: 2.5rem;
-    color: #b03a2a;
+    color: #8B0000;  /* бордовый */
     margin-bottom: 1rem;
 }
 
@@ -274,7 +274,7 @@ footer {
 
 .advantage-icon {
     font-size: 3rem;
-    color: #8B2C1D;  /* стал темнее */
+    color: #8B0000;  /* бордовый */
     margin-bottom: 1.5rem;
 }
 
