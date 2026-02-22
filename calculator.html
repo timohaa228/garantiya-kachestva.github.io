@@ -392,18 +392,18 @@
             document.getElementById('result-size').textContent = `R${diameter} ${profile}%`;
             document.getElementById('result-count').textContent = wheelCount;
             
-            document.getElementById('base-price').textContent = `${formatPrice(result.basePrice)} ₽`;
-            document.getElementById('one-wheel-total').textContent = `${formatPrice(result.oneWheelTotal)} ₽`;
+            document.getElementById('base-price').textContent = `${formatPrice(result.basePrice)}₽`;
+            document.getElementById('one-wheel-total').textContent = `${formatPrice(result.oneWheelTotal)}₽`;
             document.getElementById('wheel-count-display').textContent = `×${wheelCount}`;
-            document.getElementById('main-total-price').textContent = `${formatPrice(result.mainTotalPrice)} ₽`;
-            document.getElementById('total-price').textContent = `${formatPrice(result.totalPrice)} ₽`;
-            document.getElementById('price-value').textContent = `${formatPrice(result.totalPrice)} ₽`;
-            document.getElementById('price-per-wheel').textContent = `(${formatPrice(result.oneWheelTotal)} ₽ за одно колесо)`;
+            document.getElementById('main-total-price').textContent = `${formatPrice(result.mainTotalPrice)}₽`;
+            document.getElementById('total-price').textContent = `${formatPrice(result.totalPrice)}₽`;
+            document.getElementById('price-value').textContent = `${formatPrice(result.totalPrice)}₽`;
+            document.getElementById('price-per-wheel').textContent = `(${formatPrice(result.oneWheelTotal)}₽ за одно колесо)`;
             
             if (result.carType === 'crossover' || result.carType === 'suv' || result.carType === 'minibus') {
                 document.getElementById('car-type-surcharge').style.display = 'flex';
                 document.getElementById('car-type-note').style.display = 'block';
-                document.getElementById('car-type-amount').textContent = `+${formatPrice(result.carTypeSurcharge)} ₽`;
+                document.getElementById('car-type-amount').textContent = `+${formatPrice(result.carTypeSurcharge)}₽`;
             } else {
                 document.getElementById('car-type-surcharge').style.display = 'none';
                 document.getElementById('car-type-note').style.display = 'none';
@@ -412,7 +412,7 @@
             if (result.isLowProfile) {
                 document.getElementById('low-profile-surcharge').style.display = 'flex';
                 document.getElementById('profile-note').style.display = 'block';
-                document.getElementById('low-profile-amount').textContent = `+${formatPrice(result.lowProfileSurcharge)} ₽`;
+                document.getElementById('low-profile-amount').textContent = `+${formatPrice(result.lowProfileSurcharge)}₽`;
             } else {
                 document.getElementById('low-profile-surcharge').style.display = 'none';
                 document.getElementById('profile-note').style.display = 'none';
@@ -421,7 +421,7 @@
             if (result.isRunFlat) {
                 document.getElementById('runflat-surcharge').style.display = 'flex';
                 document.getElementById('runflat-note').style.display = 'block';
-                document.getElementById('runflat-amount').textContent = `+${formatPrice(result.runflatSurcharge)} ₽`;
+                document.getElementById('runflat-amount').textContent = `+${formatPrice(result.runflatSurcharge)}₽`;
             } else {
                 document.getElementById('runflat-surcharge').style.display = 'none';
                 document.getElementById('runflat-note').style.display = 'none';
@@ -434,31 +434,31 @@
             if (hasAdditionalServices) {
                 document.getElementById('additional-services-section').style.display = 'block';
                 document.getElementById('additional-total-breakdown').style.display = 'flex';
-                document.getElementById('additional-total-price').textContent = `+${formatPrice(result.additionalTotal)} ₽`;
+                document.getElementById('additional-total-price').textContent = `+${formatPrice(result.additionalTotal)}₽`;
                 
                 document.getElementById('sealant-breakdown').style.display = additionalServices.sealant ? 'flex' : 'none';
                 if (additionalServices.sealant) {
-                    document.getElementById('sealant-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(100 * wheelCount)} ₽`;
+                    document.getElementById('sealant-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(100 * wheelCount)}₽`;
                 }
                 
                 document.getElementById('inflation-breakdown').style.display = additionalServices.inflation ? 'flex' : 'none';
                 if (additionalServices.inflation) {
-                    document.getElementById('inflation-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(10 * wheelCount)} ₽`;
+                    document.getElementById('inflation-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(10 * wheelCount)}₽`;
                 }
                 
                 document.getElementById('jack-breakdown').style.display = additionalServices.jack ? 'flex' : 'none';
                 if (additionalServices.jack) {
-                    document.getElementById('jack-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(300)} ₽`;
+                    document.getElementById('jack-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(300)}₽`;
                 }
                 
                 document.getElementById('disposal-breakdown').style.display = additionalServices.disposal ? 'flex' : 'none';
                 if (additionalServices.disposal) {
-                    document.getElementById('disposal-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(100 * wheelCount)} ₽`;
+                    document.getElementById('disposal-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(100 * wheelCount)}₽`;
                 }
                 
                 document.getElementById('leak-check-breakdown').style.display = additionalServices.leakCheck ? 'flex' : 'none';
                 if (additionalServices.leakCheck) {
-                    document.getElementById('leak-check-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(100 * wheelCount)} ₽`;
+                    document.getElementById('leak-check-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(100 * wheelCount)}₽`;
                 }
             } else {
                 document.getElementById('additional-services-section').style.display = 'none';
