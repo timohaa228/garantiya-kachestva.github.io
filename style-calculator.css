@@ -12,7 +12,7 @@ body {
 }
 
 header {
-    background: #630e0e;
+    background: #801616;
     color: white;
     padding: 1rem 0;
     position: sticky;
@@ -64,12 +64,12 @@ nav ul li a:hover {
 }
 
 .home-link {
-    background: #7a1a1a;
+    background: #9a2a2a;
     color: white !important;
 }
 
 .home-link:hover {
-    background: #630e0e !important;
+    background: #801616 !important;
 }
 
 .section {
@@ -88,7 +88,7 @@ nav ul li a:hover {
 
 .calculator-header h1 {
     font-size: 2.5rem;
-    color: #630e0e;
+    color: #801616;
     margin-bottom: 0.5rem;
 }
 
@@ -109,7 +109,7 @@ nav ul li a:hover {
 
 .calc-instructions {
     background: #fff0f0;
-    border-left: 4px solid #7a1a1a;
+    border-left: 4px solid #9a2a2a;
     padding: 1.5rem;
     margin-bottom: 2rem;
     border-radius: 0 5px 5px 0;
@@ -117,7 +117,7 @@ nav ul li a:hover {
 }
 
 .calc-instructions h3 {
-    color: #630e0e;
+    color: #801616;
     margin-bottom: 0.5rem;
 }
 
@@ -127,9 +127,16 @@ nav ul li a:hover {
 
 .calc-inputs-row {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 1.5rem;
     margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+    .calc-inputs-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
 }
 
 .calc-group {
@@ -140,8 +147,9 @@ nav ul li a:hover {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: bold;
-    color: #630e0e;
+    color: #801616;
     text-align: left;
+    font-size: 0.9rem;
 }
 
 .calc-group select, .calc-group input {
@@ -149,12 +157,12 @@ nav ul li a:hover {
     padding: 0.8rem;
     border: 1px solid #ddd;
     border-radius: 5px;
-    font-size: 1rem;
+    font-size: 0.9rem;  /* уменьшенный размер шрифта */
     transition: border 0.3s;
 }
 
 .calc-group select:focus, .calc-group input:focus {
-    border-color: #7a1a1a;
+    border-color: #9a2a2a;
     outline: none;
 }
 
@@ -165,9 +173,9 @@ nav ul li a:hover {
     text-align: center;
     font-size: 1.2rem;
     font-weight: bold;
-    color: #630e0e;
+    color: #801616;
     margin-bottom: 2rem;
-    border: 1px solid #7a1a1a;
+    border: 1px solid #9a2a2a;
 }
 
 .additional-notes {
@@ -175,11 +183,11 @@ nav ul li a:hover {
 }
 
 .additional-notes h4 {
-    color: #630e0e;
+    color: #801616;
     margin-bottom: 1rem;
     text-align: left;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid #7a1a1a;
+    border-bottom: 2px solid #9a2a2a;
 }
 
 .checkbox-group {
@@ -190,11 +198,11 @@ nav ul li a:hover {
     padding: 0.8rem;
     background: #f9f9f9;
     border-radius: 8px;
-    border-left: 4px solid #7a1a1a;
+    border-left: 4px solid #9a2a2a;
 }
 
 .checkbox-group.runflat {
-    border-left: 4px solid #630e0e;
+    border-left: 4px solid #801616;
 }
 
 .checkbox-group input[type="checkbox"] {
@@ -202,7 +210,7 @@ nav ul li a:hover {
     height: 20px;
     margin-right: 10px;
     cursor: pointer;
-    accent-color: #7a1a1a;
+    accent-color: #9a2a2a;
 }
 
 .checkbox-group label {
@@ -228,7 +236,7 @@ nav ul li a:hover {
 
 .btn {
     display: inline-block;
-    background: #7a1a1a;
+    background: #9a2a2a;
     color: white;
     padding: 1rem 3rem;
     border-radius: 5px;
@@ -243,7 +251,7 @@ nav ul li a:hover {
 }
 
 .btn:hover {
-    background: #630e0e;
+    background: #801616;
 }
 
 .calc-result {
@@ -272,12 +280,12 @@ nav ul li a:hover {
 
 .result-header h3 {
     font-size: 1.8rem;
-    color: #630e0e;
+    color: #801616;
     margin-bottom: 0.5rem;
 }
 
 .price-box {
-    background: linear-gradient(135deg, #7a1a1a, #630e0e);
+    background: linear-gradient(135deg, #9a2a2a, #801616);
     color: white;
     padding: 2rem;
     border-radius: 8px;
@@ -309,7 +317,7 @@ nav ul li a:hover {
 }
 
 .price-breakdown h4 {
-    color: #630e0e;
+    color: #801616;
     margin-bottom: 1rem;
     text-align: center;
 }
@@ -325,7 +333,7 @@ nav ul li a:hover {
 .breakdown-item:last-child {
     border-bottom: none;
     font-weight: bold;
-    color: #630e0e;
+    color: #801616;
     font-size: 1.1rem;
 }
 
@@ -339,7 +347,7 @@ nav ul li a:hover {
 }
 
 .surcharge {
-    color: #7a1a1a;
+    color: #9a2a2a;
     font-weight: bold;
 }
 
@@ -352,7 +360,7 @@ nav ul li a:hover {
 }
 
 .additional-services-breakdown h4 {
-    color: #630e0e;
+    color: #801616;
     margin-bottom: 1rem;
     text-align: center;
 }
@@ -364,7 +372,7 @@ nav ul li a:hover {
     padding: 0.5rem;
     background: #fff0f0;
     border-radius: 4px;
-    border-left: 3px solid #7a1a1a;
+    border-left: 3px solid #9a2a2a;
 }
 
 .service-list {
@@ -376,7 +384,7 @@ nav ul li a:hover {
 }
 
 .service-list h4 {
-    color: #630e0e;
+    color: #801616;
     margin-bottom: 1rem;
     text-align: center;
 }
@@ -391,7 +399,7 @@ nav ul li a:hover {
 }
 
 footer {
-    background: #630e0e;
+    background: #801616;
     color: white;
     padding: 3rem 0 1rem;
     margin-top: 4rem;
@@ -414,41 +422,15 @@ footer {
 .copyright {
     text-align: center;
     padding-top: 2rem;
-    border-top: 1px solid #7a1a1a;
+    border-top: 1px solid #9a2a2a;
     color: rgba(255,255,255,0.8);
     font-size: 0.9rem;
-}
-
-@media (max-width: 768px) {
-    .header-content {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    nav ul {
-        margin-top: 1rem;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    nav ul li {
-        margin: 0.3rem;
-    }
-    
-    .calculator {
-        padding: 2rem 1.5rem;
-    }
-    
-    .calc-inputs-row {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
 }
 
 .back-link {
     display: inline-block;
     margin-top: 2rem;
-    color: #7a1a1a;
+    color: #9a2a2a;
     text-decoration: none;
     font-weight: bold;
 }
