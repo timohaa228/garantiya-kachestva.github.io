@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Калькулятор стоимости</title>
+    <title>Калькулятор стоимости | Автосервис</title>
     <link rel="stylesheet" href="style-calculator.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -11,12 +11,12 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="index.html" class="logo">...</a>
+                <a href="index.html" class="logo">АВТОСЕРВИС</a>
                 <nav>
                     <ul>
                         <li><a href="index.html" class="home-link"><i class="fas fa-home"></i> На главную</a></li>
                         <li><a href="index.html#tire-service">Шиномонтаж</a></li>
-                        <li><a href="index.html#why-us">Почему именно мы</a></li>
+                        <li><a href="index.html#why-us">Почему именно мы?</a></li>
                         <li><a href="index.html#contact">Контакты</a></li>
                     </ul>
                 </nav>
@@ -35,7 +35,7 @@
                 <div class="calculator">
                     <div class="calc-instructions">
                         <h3><i class="fas fa-info-circle"></i> Как пользоваться калькулятором</h3>
-                        <p>Введите тип машины, профиль и диаметр шин, выберите количество колес и нажмите "Узнать цену".</p>
+                        <p>Введите тип машины, профиль и диаметр шин, выберите количество и нажмите "Узнать цену".</p>
                         <p class="checkbox-note">Примечание: 
                             <br>- На низкий профиль (≤45%) применяется наценка 40%.
                             <br>- Для кроссоверов, внедорожников и микроавтобусов — наценка 15% к базовой стоимости.
@@ -43,6 +43,7 @@
                         </p>
                     </div>
                     
+                    <!-- Flex-контейнер для автоматического переноса -->
                     <div class="calc-inputs-row">
                         <!-- Тип машины -->
                         <div class="calc-group">
@@ -61,7 +62,7 @@
                         </div>
                         
                         <div class="calc-group">
-                            <label>Диаметр (R)</label>
+                            <label>Диаметр (дюймы)</label>
                             <select id="diameter">
                                 <option value="13">13</option>
                                 <option value="14" selected>14</option>
@@ -81,16 +82,16 @@
                         <div class="calc-group">
                             <label>Количество</label>
                             <select id="wheel-count">
-                                <option value="1">1 колесо</option>
-                                <option value="2">2 колеса</option>
-                                <option value="3">3 колеса</option>
-                                <option value="4" selected>4 колеса</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4" selected>4</option>
                             </select>
                         </div>
                     </div>
                     
                     <div class="size-display">
-                        Размер: <span id="size-display">R14 55%</span> | Колес: <span id="count-display">4</span>
+                        Размер: <span id="size-display">R14 55%</span> | Колёс: <span id="count-display">4</span>
                     </div>
                     
                     <div class="additional-notes">
@@ -139,9 +140,10 @@
                 </div>
                 
                 <div id="calc-result" class="calc-result">
+                    <!-- Результаты (без изменений) -->
                     <div class="result-header">
                         <h3>Расчет стоимости</h3>
-                        <p>Для размера: <strong id="result-size">R14 55%</strong> | Колес: <strong id="result-count">4</strong></p>
+                        <p>Для размера: <strong id="result-size">R14 55%</strong> | Колёс: <strong id="result-count">4</strong></p>
                         <p id="car-type-note" class="surcharge-note" style="display: none;">
                             <i class="fas fa-exclamation-triangle"></i> Применена наценка 15% за тип машины (кроссовер/внедорожник/микроавтобус)
                         </p>
@@ -182,7 +184,7 @@
                             <span class="breakdown-value" id="one-wheel-total">465 ₽</span>
                         </div>
                         <div class="breakdown-item">
-                            <span class="breakdown-label">Количество колес</span>
+                            <span class="breakdown-label">Количество</span>
                             <span class="breakdown-value" id="wheel-count-display">×4</span>
                         </div>
                         <div class="breakdown-item">
@@ -253,19 +255,20 @@
         <div class="container">
             <div class="footer-content" style="grid-template-columns: 1fr;">
                 <div class="footer-about">
-                    <div class="footer-logo">ГАРАНТИЯ КАЧЕСТВА</div>
-                    <p>Профессиональный шинный сервис с многолетним опытом работы.</p>
+                    <div class="footer-logo">АВТОСЕРВИС</div>
+                    <p>Профессиональный автосервис с многолетним опытом работы.</p>
                 </div>
             </div>
             
             <div class="copyright">
-                <p>&copy; 2023-2026. Все права защищены.</p>
-                <p>Данный сайт является информационным и не осуществляет продажу товаров.</p>
+                <p>&copy; 2023 Автосервис. Все права защищены.</p>
+                <p>Данный сайт является демонстрационной копией.</p>
             </div>
         </div>
     </footer>
 
     <script>
+        // Полный скрипт калькулятора (логика без изменений)
         function updateSizeDisplay() {
             const profile = document.getElementById('profile').value;
             const diameter = document.getElementById('diameter').value;
@@ -319,7 +322,6 @@
         function calculatePrice(carType, profile, diameter, wheelCount, isRunFlat, additionalServices) {
             let basePrice = getBasePrice(diameter);
             
-            // Наценка за тип машины (15% для кроссовера, внедорожника, микроавтобуса)
             let carTypeSurcharge = 0;
             if (carType === 'crossover' || carType === 'suv' || carType === 'minibus') {
                 carTypeSurcharge = basePrice * 0.15;
@@ -335,7 +337,6 @@
                 runflatSurcharge = getRunFlatSurcharge(diameter);
             }
             
-            // Итоговая стоимость за одно колесо: базовая + все наценки
             const oneWheelTotal = basePrice + carTypeSurcharge + lowProfileSurcharge + runflatSurcharge;
             const mainTotalPrice = oneWheelTotal * wheelCount;
             
@@ -399,7 +400,6 @@
             document.getElementById('price-value').textContent = `${formatPrice(result.totalPrice)} ₽`;
             document.getElementById('price-per-wheel').textContent = `(${formatPrice(result.oneWheelTotal)} ₽ за одно колесо)`;
             
-            // Отображение наценки за тип машины
             if (result.carType === 'crossover' || result.carType === 'suv' || result.carType === 'minibus') {
                 document.getElementById('car-type-surcharge').style.display = 'flex';
                 document.getElementById('car-type-note').style.display = 'block';
