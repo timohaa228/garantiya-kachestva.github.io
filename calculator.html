@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Калькулятор стоимости</title>
+    <title>Калькулятор стоимости | Автосервис</title>
     <link rel="stylesheet" href="style-calculator.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -11,12 +11,12 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="index.html" class="logo">...</a>
+                <a href="index.html" class="logo">АВТОСЕРВИС</a>
                 <nav>
                     <ul>
                         <li><a href="index.html" class="home-link"><i class="fas fa-home"></i> На главную</a></li>
                         <li><a href="index.html#tire-service">Шиномонтаж</a></li>
-                        <li><a href="index.html#why-us">Почему именно мы</a></li>
+                        <li><a href="index.html#why-us">Почему именно мы?</a></li>
                         <li><a href="index.html#contact">Контакты</a></li>
                     </ul>
                 </nav>
@@ -35,11 +35,26 @@
                 <div class="calculator">
                     <div class="calc-instructions">
                         <h3><i class="fas fa-info-circle"></i> Как пользоваться калькулятором</h3>
-                        <p>Введите профиль и диаметр шин, выберите количество колес и нажмите "Узнать цену" для расчета стоимости шиномонтажа.</p>
-                        <p class="checkbox-note">Примечание: на низкий профиль (≤45%) применяется наценка 40%; на RunFlat шины — наценка 100% на монтаж/демонтаж.</p>
+                        <p>Введите тип машины, профиль и диаметр шин, выберите количество колес и нажмите "Узнать цену".</p>
+                        <p class="checkbox-note">Примечание: 
+                            <br>- На низкий профиль (≤45%) применяется наценка 40%.
+                            <br>- Для кроссоверов, внедорожников и микроавтобусов — наценка 15% к базовой стоимости.
+                            <br>- На RunFlat шины — фиксированная надбавка в зависимости от диаметра.
+                        </p>
                     </div>
                     
-                    <div class="calc-inputs-row">
+                    <div class="calc-inputs-row" style="grid-template-columns: 1fr 1fr 1fr 1fr;">
+                        <!-- Тип машины -->
+                        <div class="calc-group">
+                            <label>Тип машины</label>
+                            <select id="car-type">
+                                <option value="passenger" selected>Легковая</option>
+                                <option value="crossover">Кроссовер</option>
+                                <option value="suv">Внедорожник</option>
+                                <option value="minibus">Микроавтобус</option>
+                            </select>
+                        </div>
+                        
                         <div class="calc-group">
                             <label>Профиль (%)</label>
                             <input type="number" id="profile" placeholder="55" min="30" max="80" value="55">
@@ -127,6 +142,9 @@
                     <div class="result-header">
                         <h3>Расчет стоимости</h3>
                         <p>Для размера: <strong id="result-size">R14 55%</strong> | Колес: <strong id="result-count">4</strong></p>
+                        <p id="car-type-note" class="surcharge-note" style="display: none;">
+                            <i class="fas fa-exclamation-triangle"></i> Применена наценка 15% за тип машины (кроссовер/внедорожник/микроавтобус)
+                        </p>
                         <p id="profile-note" class="surcharge-note" style="display: none;">
                             <i class="fas fa-exclamation-triangle"></i> Применена наценка 40% за низкий профиль (≤45%)
                         </p>
@@ -146,6 +164,10 @@
                         <div class="breakdown-item">
                             <span class="breakdown-label">Базовая стоимость за 1 колесо</span>
                             <span class="breakdown-value" id="base-price">465 ₽</span>
+                        </div>
+                        <div class="breakdown-item" id="car-type-surcharge" style="display: none;">
+                            <span class="breakdown-label">Наценка за тип машины (15%)</span>
+                            <span class="breakdown-value surcharge" id="car-type-amount">+70 ₽</span>
                         </div>
                         <div class="breakdown-item" id="low-profile-surcharge" style="display: none;">
                             <span class="breakdown-label">Наценка за низкий профиль (40%)</span>
@@ -200,7 +222,7 @@
                     <div class="price-breakdown">
                         <div class="breakdown-item">
                             <span class="breakdown-label">ОБЩАЯ СТОИМОСТЬ</span>
-                            <span class="breakdown-value" id="total-price" style="color: #630e0e; font-size: 1.2rem;">1 860 ₽</span>
+                            <span class="breakdown-value" id="total-price" style="color: #801616; font-size: 1.2rem;">1 860 ₽</span>
                         </div>
                     </div>
                     
@@ -215,7 +237,7 @@
                         </ul>
                     </div>
                     
-                    <a href="index.html#contact" class="btn" style="margin-top: 2rem; background: #7a1a1a;">
+                    <a href="index.html#contact" class="btn" style="margin-top: 2rem; background: #801616;">
                         <i class="fas fa-phone"></i> Записаться на шиномонтаж
                     </a>
                     
@@ -231,20 +253,19 @@
         <div class="container">
             <div class="footer-content" style="grid-template-columns: 1fr;">
                 <div class="footer-about">
-                    <div class="footer-logo">ГАРАНТИЯ КАЧЕСТВА</div>
-                    <p>Профессиональный шинный сервис с многолетним опытом работы. Качественные услуги по шиномонтажу и ремонту автомобилей.</p>
+                    <div class="footer-logo">АВТОСЕРВИС</div>
+                    <p>Профессиональный автосервис с многолетним опытом работы.</p>
                 </div>
             </div>
             
             <div class="copyright">
-                <p>&copy; 2023-2026. Все права защищены.</p>
-                <p>Данный сайт является информационным и не осуществляет продажу товаров.</p>
+                <p>&copy; 2023 Автосервис. Все права защищены.</p>
+                <p>Данный сайт является демонстрационной копией.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Полный скрипт калькулятора (логика без изменений)
         function updateSizeDisplay() {
             const profile = document.getElementById('profile').value;
             const diameter = document.getElementById('diameter').value;
@@ -295,21 +316,27 @@
             return surchargeMap[diameter] || 190;
         }
         
-        function calculatePrice(profile, diameter, wheelCount, isRunFlat, additionalServices) {
+        function calculatePrice(carType, profile, diameter, wheelCount, isRunFlat, additionalServices) {
             let basePrice = getBasePrice(diameter);
             
-            let lowProfileSurcharge = 0;
-            let runflatSurcharge = 0;
+            // Наценка за тип машины (15% для кроссовера, внедорожника, микроавтобуса)
+            let carTypeSurcharge = 0;
+            if (carType === 'crossover' || carType === 'suv' || carType === 'minibus') {
+                carTypeSurcharge = basePrice * 0.15;
+            }
             
+            let lowProfileSurcharge = 0;
             if (profile <= 45) {
                 lowProfileSurcharge = basePrice * 0.4;
             }
             
+            let runflatSurcharge = 0;
             if (isRunFlat) {
                 runflatSurcharge = getRunFlatSurcharge(diameter);
             }
             
-            const oneWheelTotal = basePrice + lowProfileSurcharge + runflatSurcharge;
+            // Итоговая стоимость за одно колесо: базовая + все наценки
+            const oneWheelTotal = basePrice + carTypeSurcharge + lowProfileSurcharge + runflatSurcharge;
             const mainTotalPrice = oneWheelTotal * wheelCount;
             
             let additionalTotal = 0;
@@ -323,6 +350,7 @@
             
             return {
                 basePrice: Math.round(basePrice),
+                carTypeSurcharge: Math.round(carTypeSurcharge),
                 lowProfileSurcharge: Math.round(lowProfileSurcharge),
                 runflatSurcharge: Math.round(runflatSurcharge),
                 oneWheelTotal: Math.round(oneWheelTotal),
@@ -330,6 +358,7 @@
                 additionalTotal: additionalTotal,
                 totalPrice: Math.round(totalPrice),
                 wheelCount: wheelCount,
+                carType: carType,
                 isLowProfile: profile <= 45,
                 isRunFlat: isRunFlat,
                 additionalServices: additionalServices
@@ -343,6 +372,7 @@
         window.onload = updateSizeDisplay;
         
         document.getElementById('calculate-btn').addEventListener('click', function() {
+            const carType = document.getElementById('car-type').value;
             const profile = parseInt(document.getElementById('profile').value) || 55;
             const diameter = parseInt(document.getElementById('diameter').value) || 14;
             const wheelCount = parseInt(document.getElementById('wheel-count').value) || 4;
@@ -356,7 +386,7 @@
                 leakCheck: document.getElementById('leak-check').checked
             };
             
-            const result = calculatePrice(profile, diameter, wheelCount, isRunFlat, additionalServices);
+            const result = calculatePrice(carType, profile, diameter, wheelCount, isRunFlat, additionalServices);
             
             document.getElementById('result-size').textContent = `R${diameter} ${profile}%`;
             document.getElementById('result-count').textContent = wheelCount;
@@ -368,6 +398,16 @@
             document.getElementById('total-price').textContent = `${formatPrice(result.totalPrice)} ₽`;
             document.getElementById('price-value').textContent = `${formatPrice(result.totalPrice)} ₽`;
             document.getElementById('price-per-wheel').textContent = `(${formatPrice(result.oneWheelTotal)} ₽ за одно колесо)`;
+            
+            // Отображение наценки за тип машины
+            if (result.carType === 'crossover' || result.carType === 'suv' || result.carType === 'minibus') {
+                document.getElementById('car-type-surcharge').style.display = 'flex';
+                document.getElementById('car-type-note').style.display = 'block';
+                document.getElementById('car-type-amount').textContent = `+${formatPrice(result.carTypeSurcharge)} ₽`;
+            } else {
+                document.getElementById('car-type-surcharge').style.display = 'none';
+                document.getElementById('car-type-note').style.display = 'none';
+            }
             
             if (result.isLowProfile) {
                 document.getElementById('low-profile-surcharge').style.display = 'flex';
