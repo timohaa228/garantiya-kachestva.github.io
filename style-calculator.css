@@ -125,22 +125,23 @@ nav ul li a:hover {
     margin-bottom: 0.8rem;
 }
 
+/* Flex-контейнер для гарантированного переноса */
 .calc-inputs-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr; /* 4 колонки на десктопе */
+    display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
     margin-bottom: 2rem;
 }
 
-@media (max-width: 768px) {
-    .calc-inputs-row {
-        grid-template-columns: 1fr; /* одна колонка на мобильных */
-        gap: 1rem;
-    }
+.calc-group {
+    flex: 1 1 calc(25% - 1.5rem); /* 4 элемента в ряд */
+    min-width: 200px; /* минимальная ширина, чтобы на мобильных переносились */
 }
 
-.calc-group {
-    margin-bottom: 0;
+@media (max-width: 768px) {
+    .calc-group {
+        flex: 1 1 100%; /* каждый элемент на всю ширину */
+    }
 }
 
 .calc-group label {
@@ -152,7 +153,8 @@ nav ul li a:hover {
     font-size: 0.9rem;
 }
 
-.calc-group select, .calc-group input {
+.calc-group select,
+.calc-group input {
     width: 100%;
     padding: 0.8rem;
     border: 1px solid #ddd;
@@ -161,7 +163,8 @@ nav ul li a:hover {
     transition: border 0.3s;
 }
 
-.calc-group select:focus, .calc-group input:focus {
+.calc-group select:focus,
+.calc-group input:focus {
     border-color: #9a2a2a;
     outline: none;
 }
