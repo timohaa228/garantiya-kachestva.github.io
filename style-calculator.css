@@ -127,14 +127,14 @@ nav ul li a:hover {
 
 .calc-inputs-row {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr; /* 4 колонки на десктопе */
     gap: 1.5rem;
     margin-bottom: 2rem;
 }
 
 @media (max-width: 768px) {
     .calc-inputs-row {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* одна колонка на мобильных */
         gap: 1rem;
     }
 }
@@ -157,7 +157,7 @@ nav ul li a:hover {
     padding: 0.8rem;
     border: 1px solid #ddd;
     border-radius: 5px;
-    font-size: 0.9rem;  /* уменьшенный размер шрифта */
+    font-size: 0.9rem;
     transition: border 0.3s;
 }
 
