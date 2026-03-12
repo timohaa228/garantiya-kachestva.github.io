@@ -43,7 +43,7 @@ header {
 nav ul {
     display: flex;
     list-style: none;
-    flex-wrap: wrap; /* чтобы на очень узких экране не вылезало */
+    flex-wrap: wrap;
 }
 
 nav ul li {
@@ -57,7 +57,7 @@ nav ul li a {
     transition: color 0.3s;
     padding: 0.5rem 0.8rem;
     border-radius: 4px;
-    white-space: nowrap; /* предотвращает перенос текста внутри кнопок */
+    white-space: nowrap;
 }
 
 nav ul li a:hover {
@@ -74,7 +74,6 @@ nav ul li a:hover {
     background: #801616 !important;
 }
 
-/* Адаптивность шапки: при ширине менее 700px меню становится вертикальным */
 @media (max-width: 700px) {
     .header-content {
         flex-direction: column;
@@ -320,7 +319,6 @@ nav ul li a:hover {
     font-size: 0.9rem;
 }
 
-/* Блок крупной общей стоимости (как на скриншоте) */
 .price-box {
     background: linear-gradient(135deg, #9a2a2a, #801616);
     color: white;
@@ -337,9 +335,9 @@ nav ul li a:hover {
 .price-value {
     font-size: 2.5rem;
     font-weight: bold;
-    font-variant-numeric: tabular-nums; /* все цифры одинаковой ширины */
+    font-variant-numeric: tabular-nums;
     display: inline-block;
-    min-width: 8ch; /* достаточно для 5-6 цифр с пробелом */
+    min-width: 8ch;
     text-align: center;
 }
 
@@ -349,7 +347,6 @@ nav ul li a:hover {
     margin-top: 0.5rem;
 }
 
-/* Простые итоги (как на фото) */
 .simple-total {
     background: #fff0f0;
     padding: 1.5rem;
@@ -358,6 +355,7 @@ nav ul li a:hover {
     text-align: left;
     border: 1px solid #801616;
 }
+
 .simple-item {
     display: flex;
     justify-content: space-between;
@@ -366,6 +364,7 @@ nav ul li a:hover {
     padding: 0.3rem 0;
     border-bottom: 1px dashed #ccc;
 }
+
 .simple-item.total {
     font-weight: bold;
     color: #801616;
@@ -373,11 +372,11 @@ nav ul li a:hover {
     border-bottom: none;
     margin-top: 0.5rem;
 }
+
 .simple-item.total span:last-child {
     color: #801616;
 }
 
-/* Детализация */
 .price-breakdown {
     background: #f9f9f9;
     padding: 1.5rem;
@@ -416,7 +415,7 @@ nav ul li a:hover {
 .breakdown-value {
     font-weight: bold;
     color: #333;
-    font-variant-numeric: tabular-nums; /* для ровных цифр */
+    font-variant-numeric: tabular-nums;
 }
 
 .surcharge {
