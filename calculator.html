@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Калькулятор стоимости</title>
+    <title>Калькулятор стоимости шиномонтажа</title>
     <link rel="stylesheet" href="style-calculator.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -140,7 +140,6 @@
                 </div>
                 
                 <div id="calc-result" class="calc-result">
-                    <!-- Результаты (без изменений) -->
                     <div class="result-header">
                         <h3>Расчет стоимости</h3>
                         <p>Для размера: <strong id="result-size">R14 55%</strong> | Колёс: <strong id="result-count">4</strong></p>
@@ -155,18 +154,36 @@
                         </p>
                     </div>
                     
+                    <!-- Блок общей стоимости (крупно) -->
                     <div class="price-box">
                         <div class="price-label">Общая стоимость шиномонтажа:</div>
                         <div class="price-value" id="price-value">1 860₽</div>
                         <div class="price-per-wheel" id="price-per-wheel">(465₽ за одно колесо)</div>
                     </div>
                     
-                    <div class="price-breakdown">
-                        <h4><i class="fas fa-calculator"></i> Детализация стоимости</h4>
-                        <div class="breakdown-item">
-                            <span class="breakdown-label">Базовая стоимость за 1 колесо<br></span>
-                            <span class="breakdown-value" id="base-price">465₽</span>
+                    <!-- Простые итоги в стиле первого фото -->
+                    <div class="simple-total">
+                        <div class="simple-item">
+                            <span>Базовая стоимость 1 колеса</span>
+                            <span id="simple-base">465₽</span>
                         </div>
+                        <div class="simple-item">
+                            <span>Итого за 1 колесо (с наценками)</span>
+                            <span id="simple-one-wheel">465₽</span>
+                        </div>
+                        <div class="simple-item">
+                            <span>Количество</span>
+                            <span id="simple-count">4</span>
+                        </div>
+                        <div class="simple-item total">
+                            <span>ИТОГО (основные работы)</span>
+                            <span id="simple-main-total">1 860₽</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Детализация наценок -->
+                    <div class="price-breakdown">
+                        <h4><i class="fas fa-calculator"></i> Наценки</h4>
                         <div class="breakdown-item" id="car-type-surcharge" style="display: none;">
                             <span class="breakdown-label">Наценка за тип машины (15%)</span>
                             <span class="breakdown-value surcharge" id="car-type-amount">+70₽</span>
@@ -179,20 +196,9 @@
                             <span class="breakdown-label">Надбавка за RunFlat</span>
                             <span class="breakdown-value surcharge" id="runflat-amount">+0₽</span>
                         </div>
-                        <div class="breakdown-item">
-                            <span class="breakdown-label">Итого за 1 колесо</span>
-                            <span class="breakdown-value" id="one-wheel-total">465₽</span>
-                        </div>
-                        <div class="breakdown-item">
-                            <span class="breakdown-label">Количество</span>
-                            <span class="breakdown-value" id="wheel-count-display">×4</span>
-                        </div>
-                        <div class="breakdown-item">
-                            <span class="breakdown-label">Итого основная стоимость</span>
-                            <span class="breakdown-value" id="main-total-price">1 860₽</span>
-                        </div>
                     </div>
                     
+                    <!-- Дополнительные услуги -->
                     <div class="additional-services-breakdown" id="additional-services-section" style="display: none;">
                         <h4><i class="fas fa-plus-circle"></i> Дополнительные услуги</h4>
                         <div class="breakdown-item" id="sealant-breakdown" style="display: none;">
@@ -221,13 +227,6 @@
                         </div>
                     </div>
                     
-                    <div class="price-breakdown">
-                        <div class="breakdown-item">
-                            <span class="breakdown-label">ОБЩАЯ СТОИМОСТЬ</span>
-                            <span class="breakdown-value" id="total-price" style="color: #801616; font-size: 1.2rem;">1 860₽</span>
-                        </div>
-                    </div>
-                    
                     <div class="service-list">
                         <h4><i class="fas fa-list-check"></i> В основную стоимость входит:</h4>
                         <ul>
@@ -253,7 +252,7 @@
 
     <footer>
         <div class="container">
-            <div class="footer-content" style="grid-template-columns: 1fr;">
+            <div class="footer-content">
                 <div class="footer-about">
                     <div class="footer-logo">ГАРАНТИЯ КАЧЕСТВА</div>
                     <p>Профессиональный шинный сервис с многолетним опытом работы. Качественные услуги по шиномонтажу и ремонту автомобилей.</p>
@@ -268,7 +267,6 @@
     </footer>
 
     <script>
-        // Полный скрипт калькулятора (логика без изменений)
         function updateSizeDisplay() {
             const profile = document.getElementById('profile').value;
             const diameter = document.getElementById('diameter').value;
@@ -392,6 +390,13 @@
             document.getElementById('result-size').textContent = `R${diameter} ${profile}%`;
             document.getElementById('result-count').textContent = wheelCount;
             
+            // Обновление простых итогов (как на фото)
+            document.getElementById('simple-base').textContent = formatPrice(result.basePrice) + '₽';
+            document.getElementById('simple-one-wheel').textContent = formatPrice(result.oneWheelTotal) + '₽';
+            document.getElementById('simple-count').textContent = result.wheelCount;
+            document.getElementById('simple-main-total').textContent = formatPrice(result.mainTotalPrice) + '₽';
+            
+            // Обновление остальных блоков
             document.getElementById('base-price').textContent = `${formatPrice(result.basePrice)}₽`;
             document.getElementById('one-wheel-total').textContent = `${formatPrice(result.oneWheelTotal)}₽`;
             document.getElementById('wheel-count-display').textContent = `×${wheelCount}`;
