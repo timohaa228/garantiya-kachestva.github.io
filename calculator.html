@@ -43,9 +43,7 @@
                         </p>
                     </div>
                     
-                    <!-- Flex-контейнер для автоматического переноса -->
                     <div class="calc-inputs-row">
-                        <!-- Тип машины -->
                         <div class="calc-group">
                             <label>Тип машины</label>
                             <select id="car-type">
@@ -154,9 +152,9 @@
                         </p>
                     </div>
                     
-                    <!-- Блок общей стоимости (крупно) -->
+                    <!-- Блок крупной общей стоимости -->
                     <div class="price-box">
-                        <div class="price-label">Общая стоимость шиномонтажа:</div>
+                        <div class="price-label">ОБЩАЯ СТОИМОСТЬ</div>
                         <div class="price-value" id="price-value">1 860₽</div>
                         <div class="price-per-wheel" id="price-per-wheel">(465₽ за одно колесо)</div>
                     </div>
@@ -267,210 +265,280 @@
     </footer>
 
     <script>
-        function updateSizeDisplay() {
-            const profile = document.getElementById('profile').value;
-            const diameter = document.getElementById('diameter').value;
-            const wheelCount = document.getElementById('wheel-count').value;
-            
-            document.getElementById('size-display').textContent = `R${diameter} ${profile}%`;
-            document.getElementById('count-display').textContent = wheelCount;
-        }
-        
-        document.querySelectorAll('#profile, #diameter, #wheel-count').forEach(input => {
-            input.addEventListener('input', updateSizeDisplay);
-            input.addEventListener('change', updateSizeDisplay);
-        });
-        
-        function getBasePrice(diameter) {
-            const priceMap = {
-                13: 465,
-                14: 465,
-                15: 520,
-                16: 595,
-                17: 665,
-                18: 725,
-                19: 775,
-                20: 800,
-                21: 800,
-                22: 800,
-                23: 800,
-                24: 800
-            };
-            return priceMap[diameter] || 800;
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            // Элементы ввода
+            const profileInput = document.getElementById('profile');
+            const diameterSelect = document.getElementById('diameter');
+            const wheelCountSelect = document.getElementById('wheel-count');
+            const sizeDisplay = document.getElementById('size-display');
+            const countDisplay = document.getElementById('count-display');
 
-        function getRunFlatSurcharge(diameter) {
-            const surchargeMap = {
-                13: 115,
-                14: 125,
-                15: 125,
-                16: 150,
-                17: 165,
-                18: 180,
-                19: 190,
-                20: 190,
-                21: 190,
-                22: 190,
-                23: 190,
-                24: 190
-            };
-            return surchargeMap[diameter] || 190;
-        }
-        
-        function calculatePrice(carType, profile, diameter, wheelCount, isRunFlat, additionalServices) {
-            let basePrice = getBasePrice(diameter);
-            
-            let carTypeSurcharge = 0;
-            if (carType === 'crossover' || carType === 'suv' || carType === 'minibus') {
-                carTypeSurcharge = basePrice * 0.15;
+            // Функция обновления отображения размера
+            function updateSizeDisplay() {
+                const profile = profileInput.value;
+                const diameter = diameterSelect.value;
+                const wheelCount = wheelCountSelect.value;
+                if (sizeDisplay) sizeDisplay.textContent = `R${diameter} ${profile}%`;
+                if (countDisplay) countDisplay.textContent = wheelCount;
             }
-            
-            let lowProfileSurcharge = 0;
-            if (profile <= 45) {
-                lowProfileSurcharge = basePrice * 0.4;
-            }
-            
-            let runflatSurcharge = 0;
-            if (isRunFlat) {
-                runflatSurcharge = getRunFlatSurcharge(diameter);
-            }
-            
-            const oneWheelTotal = basePrice + carTypeSurcharge + lowProfileSurcharge + runflatSurcharge;
-            const mainTotalPrice = oneWheelTotal * wheelCount;
-            
-            let additionalTotal = 0;
-            if (additionalServices.sealant) additionalTotal += 100 * wheelCount;
-            if (additionalServices.inflation) additionalTotal += 10 * wheelCount;
-            if (additionalServices.jack) additionalTotal += 300;
-            if (additionalServices.disposal) additionalTotal += 100 * wheelCount;
-            if (additionalServices.leakCheck) additionalTotal += 100 * wheelCount;
-            
-            const totalPrice = mainTotalPrice + additionalTotal;
-            
-            return {
-                basePrice: Math.round(basePrice),
-                carTypeSurcharge: Math.round(carTypeSurcharge),
-                lowProfileSurcharge: Math.round(lowProfileSurcharge),
-                runflatSurcharge: Math.round(runflatSurcharge),
-                oneWheelTotal: Math.round(oneWheelTotal),
-                mainTotalPrice: Math.round(mainTotalPrice),
-                additionalTotal: additionalTotal,
-                totalPrice: Math.round(totalPrice),
-                wheelCount: wheelCount,
-                carType: carType,
-                isLowProfile: profile <= 45,
-                isRunFlat: isRunFlat,
-                additionalServices: additionalServices
-            };
-        }
-        
-        function formatPrice(price) {
-            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-        }
-        
-        window.onload = updateSizeDisplay;
-        
-        document.getElementById('calculate-btn').addEventListener('click', function() {
-            const carType = document.getElementById('car-type').value;
-            const profile = parseInt(document.getElementById('profile').value) || 55;
-            const diameter = parseInt(document.getElementById('diameter').value) || 14;
-            const wheelCount = parseInt(document.getElementById('wheel-count').value) || 4;
-            const isRunFlat = document.getElementById('runflat').checked;
-            
-            const additionalServices = {
-                sealant: document.getElementById('sealant').checked,
-                inflation: document.getElementById('inflation').checked,
-                jack: document.getElementById('jack').checked,
-                disposal: document.getElementById('disposal').checked,
-                leakCheck: document.getElementById('leak-check').checked
-            };
-            
-            const result = calculatePrice(carType, profile, diameter, wheelCount, isRunFlat, additionalServices);
-            
-            document.getElementById('result-size').textContent = `R${diameter} ${profile}%`;
-            document.getElementById('result-count').textContent = wheelCount;
-            
-            // Обновление простых итогов (как на фото)
-            document.getElementById('simple-base').textContent = formatPrice(result.basePrice) + '₽';
-            document.getElementById('simple-one-wheel').textContent = formatPrice(result.oneWheelTotal) + '₽';
-            document.getElementById('simple-count').textContent = result.wheelCount;
-            document.getElementById('simple-main-total').textContent = formatPrice(result.mainTotalPrice) + '₽';
-            
-            // Обновление остальных блоков
-            document.getElementById('base-price').textContent = `${formatPrice(result.basePrice)}₽`;
-            document.getElementById('one-wheel-total').textContent = `${formatPrice(result.oneWheelTotal)}₽`;
-            document.getElementById('wheel-count-display').textContent = `×${wheelCount}`;
-            document.getElementById('main-total-price').textContent = `${formatPrice(result.mainTotalPrice)}₽`;
-            document.getElementById('total-price').textContent = `${formatPrice(result.totalPrice)}₽`;
-            document.getElementById('price-value').textContent = `${formatPrice(result.totalPrice)}₽`;
-            document.getElementById('price-per-wheel').textContent = `(${formatPrice(result.oneWheelTotal)}₽ за одно колесо)`;
-            
-            if (result.carType === 'crossover' || result.carType === 'suv' || result.carType === 'minibus') {
-                document.getElementById('car-type-surcharge').style.display = 'flex';
-                document.getElementById('car-type-note').style.display = 'block';
-                document.getElementById('car-type-amount').textContent = `+${formatPrice(result.carTypeSurcharge)}₽`;
-            } else {
-                document.getElementById('car-type-surcharge').style.display = 'none';
-                document.getElementById('car-type-note').style.display = 'none';
-            }
-            
-            if (result.isLowProfile) {
-                document.getElementById('low-profile-surcharge').style.display = 'flex';
-                document.getElementById('profile-note').style.display = 'block';
-                document.getElementById('low-profile-amount').textContent = `+${formatPrice(result.lowProfileSurcharge)}₽`;
-            } else {
-                document.getElementById('low-profile-surcharge').style.display = 'none';
-                document.getElementById('profile-note').style.display = 'none';
-            }
-            
-            if (result.isRunFlat) {
-                document.getElementById('runflat-surcharge').style.display = 'flex';
-                document.getElementById('runflat-note').style.display = 'block';
-                document.getElementById('runflat-amount').textContent = `+${formatPrice(result.runflatSurcharge)}₽`;
-            } else {
-                document.getElementById('runflat-surcharge').style.display = 'none';
-                document.getElementById('runflat-note').style.display = 'none';
-            }
-            
-            const hasAdditionalServices = additionalServices.sealant || additionalServices.inflation || 
-                                         additionalServices.jack || additionalServices.disposal || 
-                                         additionalServices.leakCheck;
-            
-            if (hasAdditionalServices) {
-                document.getElementById('additional-services-section').style.display = 'block';
-                document.getElementById('additional-total-breakdown').style.display = 'flex';
-                document.getElementById('additional-total-price').textContent = `+${formatPrice(result.additionalTotal)}₽`;
-                
-                document.getElementById('sealant-breakdown').style.display = additionalServices.sealant ? 'flex' : 'none';
-                if (additionalServices.sealant) {
-                    document.getElementById('sealant-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(100 * wheelCount)}₽`;
+
+            // Слушатели для полей ввода
+            [profileInput, diameterSelect, wheelCountSelect].forEach(input => {
+                if (input) {
+                    input.addEventListener('input', updateSizeDisplay);
+                    input.addEventListener('change', updateSizeDisplay);
                 }
-                
-                document.getElementById('inflation-breakdown').style.display = additionalServices.inflation ? 'flex' : 'none';
-                if (additionalServices.inflation) {
-                    document.getElementById('inflation-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(10 * wheelCount)}₽`;
-                }
-                
-                document.getElementById('jack-breakdown').style.display = additionalServices.jack ? 'flex' : 'none';
-                if (additionalServices.jack) {
-                    document.getElementById('jack-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(300)}₽`;
-                }
-                
-                document.getElementById('disposal-breakdown').style.display = additionalServices.disposal ? 'flex' : 'none';
-                if (additionalServices.disposal) {
-                    document.getElementById('disposal-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(100 * wheelCount)}₽`;
-                }
-                
-                document.getElementById('leak-check-breakdown').style.display = additionalServices.leakCheck ? 'flex' : 'none';
-                if (additionalServices.leakCheck) {
-                    document.getElementById('leak-check-breakdown').querySelector('.breakdown-value').textContent = `+${formatPrice(100 * wheelCount)}₽`;
-                }
-            } else {
-                document.getElementById('additional-services-section').style.display = 'none';
+            });
+
+            // Базовая стоимость по диаметру
+            function getBasePrice(diameter) {
+                const priceMap = {
+                    13: 465, 14: 465, 15: 520, 16: 595, 17: 665,
+                    18: 725, 19: 775, 20: 800, 21: 800, 22: 800,
+                    23: 800, 24: 800
+                };
+                return priceMap[diameter] || 800;
             }
-            
-            document.getElementById('calc-result').classList.add('active');
-            document.getElementById('calc-result').scrollIntoView({ behavior: 'smooth' });
+
+            // Надбавка за RunFlat
+            function getRunFlatSurcharge(diameter) {
+                const surchargeMap = {
+                    13: 115, 14: 125, 15: 125, 16: 150, 17: 165,
+                    18: 180, 19: 190, 20: 190, 21: 190, 22: 190,
+                    23: 190, 24: 190
+                };
+                return surchargeMap[diameter] || 190;
+            }
+
+            // Основная функция расчёта
+            function calculatePrice(carType, profile, diameter, wheelCount, isRunFlat, additionalServices) {
+                let basePrice = getBasePrice(diameter);
+
+                let carTypeSurcharge = 0;
+                if (carType === 'crossover' || carType === 'suv' || carType === 'minibus') {
+                    carTypeSurcharge = basePrice * 0.15;
+                }
+
+                let lowProfileSurcharge = 0;
+                if (profile <= 45) {
+                    lowProfileSurcharge = basePrice * 0.4;
+                }
+
+                let runflatSurcharge = 0;
+                if (isRunFlat) {
+                    runflatSurcharge = getRunFlatSurcharge(diameter);
+                }
+
+                const oneWheelTotal = basePrice + carTypeSurcharge + lowProfileSurcharge + runflatSurcharge;
+                const mainTotalPrice = oneWheelTotal * wheelCount;
+
+                let additionalTotal = 0;
+                if (additionalServices.sealant) additionalTotal += 100 * wheelCount;
+                if (additionalServices.inflation) additionalTotal += 10 * wheelCount;
+                if (additionalServices.jack) additionalTotal += 300;
+                if (additionalServices.disposal) additionalTotal += 100 * wheelCount;
+                if (additionalServices.leakCheck) additionalTotal += 100 * wheelCount;
+
+                const totalPrice = mainTotalPrice + additionalTotal;
+
+                return {
+                    basePrice: Math.round(basePrice),
+                    carTypeSurcharge: Math.round(carTypeSurcharge),
+                    lowProfileSurcharge: Math.round(lowProfileSurcharge),
+                    runflatSurcharge: Math.round(runflatSurcharge),
+                    oneWheelTotal: Math.round(oneWheelTotal),
+                    mainTotalPrice: Math.round(mainTotalPrice),
+                    additionalTotal: additionalTotal,
+                    totalPrice: Math.round(totalPrice),
+                    wheelCount: wheelCount,
+                    carType: carType,
+                    isLowProfile: profile <= 45,
+                    isRunFlat: isRunFlat,
+                    additionalServices: additionalServices
+                };
+            }
+
+            // Форматирование цены с пробелами
+            function formatPrice(price) {
+                return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+            }
+
+            // Кнопка расчёта
+            const calculateBtn = document.getElementById('calculate-btn');
+            if (calculateBtn) {
+                calculateBtn.addEventListener('click', function() {
+                    // Считываем значения
+                    const carType = document.getElementById('car-type')?.value || 'passenger';
+                    const profile = parseInt(document.getElementById('profile')?.value) || 55;
+                    const diameter = parseInt(document.getElementById('diameter')?.value) || 14;
+                    const wheelCount = parseInt(document.getElementById('wheel-count')?.value) || 4;
+                    const isRunFlat = document.getElementById('runflat')?.checked || false;
+
+                    const additionalServices = {
+                        sealant: document.getElementById('sealant')?.checked || false,
+                        inflation: document.getElementById('inflation')?.checked || false,
+                        jack: document.getElementById('jack')?.checked || false,
+                        disposal: document.getElementById('disposal')?.checked || false,
+                        leakCheck: document.getElementById('leak-check')?.checked || false
+                    };
+
+                    const result = calculatePrice(carType, profile, diameter, wheelCount, isRunFlat, additionalServices);
+
+                    // Обновляем элементы интерфейса (с проверкой на существование)
+                    const resultSize = document.getElementById('result-size');
+                    if (resultSize) resultSize.textContent = `R${diameter} ${profile}%`;
+
+                    const resultCount = document.getElementById('result-count');
+                    if (resultCount) resultCount.textContent = wheelCount;
+
+                    // Простые итоги
+                    const simpleBase = document.getElementById('simple-base');
+                    if (simpleBase) simpleBase.textContent = formatPrice(result.basePrice) + '₽';
+
+                    const simpleOneWheel = document.getElementById('simple-one-wheel');
+                    if (simpleOneWheel) simpleOneWheel.textContent = formatPrice(result.oneWheelTotal) + '₽';
+
+                    const simpleCount = document.getElementById('simple-count');
+                    if (simpleCount) simpleCount.textContent = result.wheelCount;
+
+                    const simpleMainTotal = document.getElementById('simple-main-total');
+                    if (simpleMainTotal) simpleMainTotal.textContent = formatPrice(result.mainTotalPrice) + '₽';
+
+                    // Детальные блоки
+                    const basePriceEl = document.getElementById('base-price');
+                    if (basePriceEl) basePriceEl.textContent = `${formatPrice(result.basePrice)}₽`;
+
+                    const oneWheelTotalEl = document.getElementById('one-wheel-total');
+                    if (oneWheelTotalEl) oneWheelTotalEl.textContent = `${formatPrice(result.oneWheelTotal)}₽`;
+
+                    const wheelCountDisplay = document.getElementById('wheel-count-display');
+                    if (wheelCountDisplay) wheelCountDisplay.textContent = `×${wheelCount}`;
+
+                    const mainTotalPriceEl = document.getElementById('main-total-price');
+                    if (mainTotalPriceEl) mainTotalPriceEl.textContent = `${formatPrice(result.mainTotalPrice)}₽`;
+
+                    const totalPriceEl = document.getElementById('total-price');
+                    if (totalPriceEl) totalPriceEl.textContent = `${formatPrice(result.totalPrice)}₽`;
+
+                    const priceValue = document.getElementById('price-value');
+                    if (priceValue) priceValue.textContent = `${formatPrice(result.totalPrice)}₽`;
+
+                    const pricePerWheel = document.getElementById('price-per-wheel');
+                    if (pricePerWheel) pricePerWheel.textContent = `(${formatPrice(result.oneWheelTotal)}₽ за одно колесо)`;
+
+                    // Наценки
+                    const carTypeSurcharge = document.getElementById('car-type-surcharge');
+                    const carTypeNote = document.getElementById('car-type-note');
+                    const carTypeAmount = document.getElementById('car-type-amount');
+                    if (result.carType === 'crossover' || result.carType === 'suv' || result.carType === 'minibus') {
+                        if (carTypeSurcharge) carTypeSurcharge.style.display = 'flex';
+                        if (carTypeNote) carTypeNote.style.display = 'block';
+                        if (carTypeAmount) carTypeAmount.textContent = `+${formatPrice(result.carTypeSurcharge)}₽`;
+                    } else {
+                        if (carTypeSurcharge) carTypeSurcharge.style.display = 'none';
+                        if (carTypeNote) carTypeNote.style.display = 'none';
+                    }
+
+                    const lowProfileSurcharge = document.getElementById('low-profile-surcharge');
+                    const profileNote = document.getElementById('profile-note');
+                    const lowProfileAmount = document.getElementById('low-profile-amount');
+                    if (result.isLowProfile) {
+                        if (lowProfileSurcharge) lowProfileSurcharge.style.display = 'flex';
+                        if (profileNote) profileNote.style.display = 'block';
+                        if (lowProfileAmount) lowProfileAmount.textContent = `+${formatPrice(result.lowProfileSurcharge)}₽`;
+                    } else {
+                        if (lowProfileSurcharge) lowProfileSurcharge.style.display = 'none';
+                        if (profileNote) profileNote.style.display = 'none';
+                    }
+
+                    const runflatSurcharge = document.getElementById('runflat-surcharge');
+                    const runflatNote = document.getElementById('runflat-note');
+                    const runflatAmount = document.getElementById('runflat-amount');
+                    if (result.isRunFlat) {
+                        if (runflatSurcharge) runflatSurcharge.style.display = 'flex';
+                        if (runflatNote) runflatNote.style.display = 'block';
+                        if (runflatAmount) runflatAmount.textContent = `+${formatPrice(result.runflatSurcharge)}₽`;
+                    } else {
+                        if (runflatSurcharge) runflatSurcharge.style.display = 'none';
+                        if (runflatNote) runflatNote.style.display = 'none';
+                    }
+
+                    // Дополнительные услуги
+                    const hasAdditional = Object.values(additionalServices).some(v => v);
+                    const additionalSection = document.getElementById('additional-services-section');
+                    if (additionalSection) {
+                        additionalSection.style.display = hasAdditional ? 'block' : 'none';
+                    }
+
+                    if (hasAdditional) {
+                        const additionalTotalBreakdown = document.getElementById('additional-total-breakdown');
+                        if (additionalTotalBreakdown) additionalTotalBreakdown.style.display = 'flex';
+
+                        const additionalTotalPrice = document.getElementById('additional-total-price');
+                        if (additionalTotalPrice) additionalTotalPrice.textContent = `+${formatPrice(result.additionalTotal)}₽`;
+
+                        // Герметик
+                        const sealantBreakdown = document.getElementById('sealant-breakdown');
+                        if (sealantBreakdown) {
+                            sealantBreakdown.style.display = additionalServices.sealant ? 'flex' : 'none';
+                            if (additionalServices.sealant) {
+                                const valEl = sealantBreakdown.querySelector('.breakdown-value');
+                                if (valEl) valEl.textContent = `+${formatPrice(100 * wheelCount)}₽`;
+                            }
+                        }
+
+                        // Подкачка
+                        const inflationBreakdown = document.getElementById('inflation-breakdown');
+                        if (inflationBreakdown) {
+                            inflationBreakdown.style.display = additionalServices.inflation ? 'flex' : 'none';
+                            if (additionalServices.inflation) {
+                                const valEl = inflationBreakdown.querySelector('.breakdown-value');
+                                if (valEl) valEl.textContent = `+${formatPrice(10 * wheelCount)}₽`;
+                            }
+                        }
+
+                        // Домкрат
+                        const jackBreakdown = document.getElementById('jack-breakdown');
+                        if (jackBreakdown) {
+                            jackBreakdown.style.display = additionalServices.jack ? 'flex' : 'none';
+                            if (additionalServices.jack) {
+                                const valEl = jackBreakdown.querySelector('.breakdown-value');
+                                if (valEl) valEl.textContent = `+${formatPrice(300)}₽`;
+                            }
+                        }
+
+                        // Утилизация
+                        const disposalBreakdown = document.getElementById('disposal-breakdown');
+                        if (disposalBreakdown) {
+                            disposalBreakdown.style.display = additionalServices.disposal ? 'flex' : 'none';
+                            if (additionalServices.disposal) {
+                                const valEl = disposalBreakdown.querySelector('.breakdown-value');
+                                if (valEl) valEl.textContent = `+${formatPrice(100 * wheelCount)}₽`;
+                            }
+                        }
+
+                        // Проверка прокола
+                        const leakCheckBreakdown = document.getElementById('leak-check-breakdown');
+                        if (leakCheckBreakdown) {
+                            leakCheckBreakdown.style.display = additionalServices.leakCheck ? 'flex' : 'none';
+                            if (additionalServices.leakCheck) {
+                                const valEl = leakCheckBreakdown.querySelector('.breakdown-value');
+                                if (valEl) valEl.textContent = `+${formatPrice(100 * wheelCount)}₽`;
+                            }
+                        }
+                    }
+
+                    // Показываем блок результата
+                    const resultBlock = document.getElementById('calc-result');
+                    if (resultBlock) {
+                        resultBlock.classList.add('active');
+                        resultBlock.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+
+            // Инициализация отображения
+            updateSizeDisplay();
         });
     </script>
 </body>
