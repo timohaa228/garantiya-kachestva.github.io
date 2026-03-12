@@ -72,6 +72,30 @@ nav ul li a:hover {
     background: #801616 !important;
 }
 
+/* Адаптивность шапки для мобильных */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: 1rem;
+    }
+    nav ul li {
+        margin-left: 0;
+        margin-bottom: 0.5rem;
+        width: 100%;
+        text-align: center;
+    }
+    nav ul li a {
+        display: block;
+        padding: 0.5rem;
+    }
+}
+
 .section {
     padding: 4rem 0;
 }
@@ -318,6 +342,34 @@ nav ul li a:hover {
     margin-top: 0.5rem;
 }
 
+/* Новый блок простых итогов (как на фото) */
+.simple-total {
+    background: #fff0f0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    border: 1px solid #801616;
+}
+.simple-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+    padding: 0.3rem 0;
+    border-bottom: 1px dashed #ccc;
+}
+.simple-item.total {
+    font-weight: bold;
+    color: #801616;
+    font-size: 1.3rem;
+    border-bottom: none;
+    margin-top: 0.5rem;
+}
+.simple-item.total span:last-child {
+    color: #801616;
+}
+
 .price-breakdown {
     background: #f9f9f9;
     padding: 1.5rem;
@@ -422,7 +474,7 @@ footer {
 
 .footer-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: 1fr;
     gap: 2rem;
     margin-bottom: 2rem;
 }
@@ -439,7 +491,7 @@ footer {
     padding-top: 2rem;
     border-top: 1px solid #9a2a2a;
     color: rgba(255,255,255,0.8);
-    font-size: 0.9rem; /* восстановлено */
+    font-size: 0.9rem;
 }
 
 .back-link {
@@ -448,7 +500,7 @@ footer {
     color: #9a2a2a;
     text-decoration: none;
     font-weight: bold;
-    font-size: 1rem; /* восстановлено */
+    font-size: 1rem;
 }
 
 .back-link:hover {
